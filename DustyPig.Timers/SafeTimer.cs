@@ -7,7 +7,7 @@ namespace DustyPig.Timers;
 /// <summary>
 /// Non-overlapping timer that swallows exceptions in tick callbacks
 /// </summary>
-internal class SafeTimer : IDisposable
+public class SafeTimer : IDisposable
 {
     private readonly Timer _timer;
     private readonly Action? _action;
