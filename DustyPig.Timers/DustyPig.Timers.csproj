@@ -28,6 +28,13 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
 
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
 	
 	
 	<ItemGroup>
