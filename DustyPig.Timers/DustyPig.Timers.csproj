@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8;net9;net10.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Leave the revision zero, it will be updated by github actions -->
+		<Version>1.0.0.0</Version>
+	
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<Authors>DustyPig.tv</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Description>Timer Library</Description>
+		<Copyright>DustyPig.tv</Copyright>
+		<PackageProjectUrl>https://github.com/dustypigtv/DustyPig.Timers</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/dustypigtv/DustyPig.Timers.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+
+	
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.2" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102" PrivateAssets="All" />
+	</ItemGroup>
+
+</Project>
