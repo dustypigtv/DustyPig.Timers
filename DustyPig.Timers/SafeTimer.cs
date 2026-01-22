@@ -124,13 +124,7 @@ public class SafeTimer : IDisposable
         Enabled = false;
         CancelTickAndWait();
         if (_usesCancellationToken)
-        {
-            //Dispose of the previous cts after going out of scope
-            using var oldRef = _cancellationTokenSource;
-
-            //Create a new cts before disposing the old one
-            _cancellationTokenSource = new CancellationTokenSource();
-        }
+            Interlocked.Exchange(ref _cancellationTokenSource, new CancellationTokenSource()).Dispose();
     }
 
 
