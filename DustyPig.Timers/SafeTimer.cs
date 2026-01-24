@@ -157,29 +157,35 @@ public class SafeTimer : IDisposable
         if (_disposed || !Enabled)
             return;
 
-        if (_semaphore.Wait(0))
+        //Outer try is in case _semaphore is disposed
+        try
         {
-            try
+            if (_semaphore.Wait(0))
             {
-                if (_async)
+                //Inner try is to stop the func call from crashing the timer
+                try
                 {
-                    await _func!(_cancellationTokenSource.Token).ConfigureAwait(false);
+                    if (_async)
+                    {
+                        await _func!(_cancellationTokenSource.Token).ConfigureAwait(false);
+                    }
+                    else if (_usesCancellationToken)
+                    {
+                        _actionWithCancellationToken!(_cancellationTokenSource.Token);
+                    }
+                    else
+                    {
+                        _action!();
+                    }
                 }
-                else if (_usesCancellationToken)
+                catch (Exception ex)
                 {
-                    _actionWithCancellationToken!(_cancellationTokenSource.Token);
+                    _logger?.LogError(ex, nameof(TimerTick));
                 }
-                else
-                {
-                    _action!();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, nameof(TimerTick));
-            }
 
-            _semaphore.Release();
+                _semaphore.Release();
+            }
         }
+        catch { }
     }
 }
